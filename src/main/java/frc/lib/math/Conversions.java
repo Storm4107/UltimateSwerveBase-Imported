@@ -1,5 +1,7 @@
 package frc.lib.math;
 
+import com.revrobotics.RelativeEncoder;
+
 public class Conversions {
 
     /**
@@ -102,5 +104,23 @@ public class Conversions {
      */
     public static double MetersToFalcon(double meters, double circumference, double gearRatio){
         return meters / (circumference / (gearRatio * 2048.0));
+    }
+
+     /**
+     * @param counts neo Position Counts
+     * @param gearRatio Gear Ratio between neo and Mechanism
+     * @return Degrees of Rotation of Mechanism
+     */
+    public static double NeoToDegrees(double d, double gearRatio) {
+        return d * (360.0 / (gearRatio * 42.0));
+    }
+
+    /**
+     * @param degrees Degrees of rotation of Mechanism
+     * @param gearRatio Gear Ratio between neo and Mechanism
+     * @return neo Position Counts
+     */
+    public static double degreesToNeo(double degrees, double gearRatio) {
+        return degrees / (360.0 / (gearRatio * 42.0));
     }
 }

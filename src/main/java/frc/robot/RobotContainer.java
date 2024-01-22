@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Articulation.Arm;
+import frc.robot.subsystems.Articulation.Intake;
+import frc.robot.subsystems.Articulation.Shooter;
 import frc.robot.subsystems.swerve.rev.RevSwerve;
 
 /**
@@ -20,12 +23,27 @@ public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
 
+    private final Joystick operator = new Joystick(1);
+
     /* Drive Controls */
     private final int translationAxis = 1;
     private final int strafeAxis = 0;
     private final int rotationAxis = 2;
-
     private final int speedDial = 5;
+
+    //operator controls
+    private final int armAxis = 1;
+    private final int shooterSpeedDial = 3;
+
+    //operator presets
+    private JoystickButton high = new JoystickButton(operator, 8);
+    private JoystickButton medium = new JoystickButton(operator, 10);
+    private JoystickButton low = new JoystickButton(operator, 12);
+
+    //intake buttons
+    private JoystickButton shoot = new JoystickButton(operator, 1); //trigger
+    private JoystickButton intake = new JoystickButton(operator, 7);
+    private JoystickButton eject = new JoystickButton(operator, 9);
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, 7);
@@ -39,6 +57,9 @@ public class RobotContainer {
 
     /* Subsystems */
     private final RevSwerve s_Swerve = new RevSwerve();
+    private final Arm s_arm = new Arm();
+    private final Intake s_intake = new Intake();
+    private final Shooter s_shooter = new Shooter();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,6 +75,28 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(speedDial) 
             )
         );
+
+       s_arm.setDefaultCommand(
+        new ArmCommand(
+            s_arm,
+            () -> -operator.getRawAxis(armAxis)
+             )
+       );
+
+       s_intake.setDefaultCommand(
+        new IntakeCommand(
+            s_intake
+            )
+       );
+
+       s_shooter.setDefaultCommand(
+        new ShooterCommand(
+            s_shooter,
+            () -> operator.getRawAxis(shooterSpeedDial)
+        )
+       );
+
+
 
         // Configure the button bindings
         configureButtonBindings();
@@ -87,6 +130,20 @@ public class RobotContainer {
             new InstantCommand(() -> States.driveState = States.DriveStates.d270)).onFalse(
             new InstantCommand(() -> States.driveState = States.DriveStates.standard)
             );
+
+        //Intake states
+        shoot.onTrue(
+            new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot)).onFalse(
+            new InstantCommand(() -> States.intakeState = States.IntakeStates.standard)
+        );
+        eject.onTrue(
+            new InstantCommand(() -> States.intakeState = States.IntakeStates.eject)).onFalse(
+            new InstantCommand(() -> States.intakeState = States.IntakeStates.standard)
+        );
+        intake.onTrue(
+            new InstantCommand(() -> States.intakeState = States.IntakeStates.intake)).onFalse(
+            new InstantCommand(() -> States.intakeState = States.IntakeStates.standard)
+        );
 
         
 
