@@ -27,7 +27,7 @@ public class ArmCommand extends Command {
     addRequirements(Arm);
 
     armController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
-    armController.setTolerance(0.3);
+    armController.setTolerance(1);
 
   }
 
@@ -44,9 +44,8 @@ public class ArmCommand extends Command {
     
 
     Arm.adjustSetpoint(delta);
-    Arm.RunArm(armController.calculate(Arm.getAngle(), Arm.setpoint));
+    Arm.RunArm(armController.calculate(Arm.getNeoAngle(), Arm.setpoint));
     SmartDashboard.putNumber("arm input", input);
-    SmartDashboard.putNumber("arm setpoint", Arm.setpoint);
     SmartDashboard.putNumber("arm angle", Arm.getAngle());
   }
 

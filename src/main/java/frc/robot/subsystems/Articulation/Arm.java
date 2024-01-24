@@ -34,7 +34,8 @@ public class Arm extends SubsystemBase {
 
  public double setpoint = Constants.articulation.armEncoderOffset;
 
-  RelativeEncoder Encoder;
+  RelativeEncoder neoEncoder;
+  
   /** Creates a new Arm. */
   public Arm() {
 
@@ -66,9 +67,14 @@ public class Arm extends SubsystemBase {
 
    armLeft.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.articulation.revLimit);
    armRight.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.articulation.revLimit);
+
+   neoEncoder = armLeft.getEncoder();
+   neoEncoder.setPosition(0);
+   
    
    armLeft.burnFlash();
    armRight.burnFlash();
+
   }
 
   //angle set
@@ -77,7 +83,25 @@ public class Arm extends SubsystemBase {
   }
 
   public void adjustSetpoint(double delta) {
-   setpoint += delta;
+    if (getNeoAngle() > Constants.articulation.fwdLimit) {
+   if (delta > 0) {
+    delta= 0;
+    setpoint = Constants.articulation.fwdLimit;
+   } else {
+    delta = delta;
+   }
+    } else{
+      if (getNeoAngle() < Constants.articulation.revLimit) {
+        if (delta < 0) {
+    delta= 0;
+    setpoint = Constants.articulation.revLimit;
+   } else {
+    delta = delta;
+   }
+      } 
+       
+    }
+    setpoint += delta;
   }
 
   //live adjustment
@@ -91,8 +115,21 @@ public class Arm extends SubsystemBase {
         return armEncoder.getAbsolutePosition();
     }
 
+  
+   public double getNeoAngle() {
+    return neoEncoder.getPosition();
+   }
+
+   public double getNeoAdjustedAngle() {
+    return neoEncoder.getPosition() / Constants.articulation.gearRatio * 360;
+   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run  
+    SmartDashboard.putNumber("Neo raw position", getNeoAngle());
+     SmartDashboard.putNumber("Neo position", getNeoAdjustedAngle());
+    SmartDashboard.putNumber("Neo Conversion", neoEncoder.getPositionConversionFactor());
+    SmartDashboard.putNumber("Limited setpoint", setpoint);
   }
 }
