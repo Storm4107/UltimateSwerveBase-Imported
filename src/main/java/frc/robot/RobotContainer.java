@@ -5,11 +5,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Articulation.Arm;
 import frc.robot.subsystems.Articulation.Intake;
+import frc.robot.subsystems.Articulation.PoseEstimator;
 import frc.robot.subsystems.Articulation.Shooter;
 import frc.robot.subsystems.swerve.rev.RevSwerve;
 
@@ -39,6 +41,7 @@ public class RobotContainer {
     private JoystickButton high = new JoystickButton(operator, 8);
     private JoystickButton medium = new JoystickButton(operator, 10);
     private JoystickButton low = new JoystickButton(operator, 12);
+    private JoystickButton speakerShot = new JoystickButton(operator, 5);
 
     //intake buttons
     private JoystickButton shoot = new JoystickButton(operator, 1); //trigger
@@ -60,6 +63,7 @@ public class RobotContainer {
     private final Arm s_arm = new Arm();
     private final Intake s_intake = new Intake();
     private final Shooter s_shooter = new Shooter();
+    private final PoseEstimator s_PoseEstimator = new PoseEstimator();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -69,7 +73,7 @@ public class RobotContainer {
                 s_Swerve, 
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
-                () -> driver.getRawAxis(rotationAxis), 
+                () -> -driver.getRawAxis(rotationAxis), 
                 () -> false,
                 () -> dampen.getAsBoolean(),
                 () -> -driver.getRawAxis(speedDial) 
@@ -94,6 +98,12 @@ public class RobotContainer {
             s_shooter,
             () -> operator.getRawAxis(shooterSpeedDial)
         )
+       );
+
+       new SequentialCommandGroup(
+        new InstantCommand(() -> States.armState = States.ArmStates.speakerShot),
+        new RevShooter(s_shooter),
+        new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot)
        );
 
 
@@ -145,9 +155,29 @@ public class RobotContainer {
             new InstantCommand(() -> States.intakeState = States.IntakeStates.standard)
         );
 
+        //Arm presets
+        low.onTrue(
+            new InstantCommand(() -> States.armState = States.ArmStates.low)).onFalse(
+            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+        );
+        medium.onTrue(
+             new InstantCommand(() -> States.armState = States.ArmStates.medium)).onFalse(
+            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+        );
+        high.onTrue(
+             new InstantCommand(() -> States.armState = States.ArmStates.high)).onFalse(
+            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+        );
+        speakerShot.onTrue(
+            new SequentialCommandGroup(
+        new InstantCommand(() -> States.armState = States.ArmStates.speakerShot),
+        new RevShooter(s_shooter),
+        new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot)
+        )
+        );
+          
         
 
-       
     }
 
     /**

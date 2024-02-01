@@ -15,10 +15,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.math.Conversions;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.subsystems.swerve.rev.RevSwerveConfig;
 
 public class Arm extends SubsystemBase {
@@ -32,7 +34,9 @@ public class Arm extends SubsystemBase {
 
  public CANCoder armEncoder = new CANCoder(Constants.articulation.armEncoder);
 
- public double setpoint = Constants.articulation.armEncoderOffset;
+ public DigitalInput limitSwitch = new DigitalInput(Constants.articulation.limitSwitch);
+
+ public double setpoint = 0;
 
   RelativeEncoder neoEncoder;
   
@@ -79,7 +83,11 @@ public class Arm extends SubsystemBase {
 
   //angle set
   public void setAngle(double angle){
-    double  counts = Conversions.degreesToNeo(angle, Constants.articulation.gearRatio);
+    setpoint = angle;
+  }
+
+   public void setNeoZero(double position){
+    neoEncoder.setPosition(position);
   }
 
   public void adjustSetpoint(double delta) {
@@ -87,14 +95,13 @@ public class Arm extends SubsystemBase {
    if (delta > 0) {
     delta= 0;
     setpoint = Constants.articulation.fwdLimit;
-   } else {
-    delta = delta;
    }
+
     } else{
       if (getNeoAngle() < Constants.articulation.revLimit) {
         if (delta < 0) {
-    delta= 0;
-    setpoint = Constants.articulation.revLimit;
+    delta = 0;
+    setpoint = 0;
    } else {
     delta = delta;
    }
@@ -112,7 +119,7 @@ public class Arm extends SubsystemBase {
 
   //Encoder angle grab
    public double getAngle() {
-        return armEncoder.getAbsolutePosition();
+        return armEncoder.getAbsolutePosition() - Constants.articulation.armEncoderOffset;
     }
 
   
@@ -121,15 +128,16 @@ public class Arm extends SubsystemBase {
    }
 
    public double getNeoAdjustedAngle() {
-    return neoEncoder.getPosition() / Constants.articulation.gearRatio * 360;
+    return (neoEncoder.getPosition() * 90/134.7);
    }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run  
     SmartDashboard.putNumber("Neo raw position", getNeoAngle());
-     SmartDashboard.putNumber("Neo position", getNeoAdjustedAngle());
-    SmartDashboard.putNumber("Neo Conversion", neoEncoder.getPositionConversionFactor());
-    SmartDashboard.putNumber("Limited setpoint", setpoint);
+    SmartDashboard.putNumber("Neo position", getNeoAdjustedAngle());
+    SmartDashboard.putString("Arm state", States.armState.toString());
+    SmartDashboard.putBoolean("Arm bottom Limit", limitSwitch.get());
+    SmartDashboard.putNumber("Arm CANCoder", getAngle());
   }
 }

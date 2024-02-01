@@ -11,6 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.subsystems.Articulation.Arm;
 
 public class ArmCommand extends Command {
@@ -27,7 +28,7 @@ public class ArmCommand extends Command {
     addRequirements(Arm);
 
     armController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
-    armController.setTolerance(1);
+    armController.setTolerance(0.25);
 
   }
 
@@ -42,9 +43,36 @@ public class ArmCommand extends Command {
 
     double delta = input * Constants.articulation.ScalingRatio;
     
+switch(States.armState){
+            case standard:
+                //standard
+                 Arm.adjustSetpoint(delta);
 
-    Arm.adjustSetpoint(delta);
-    Arm.RunArm(armController.calculate(Arm.getNeoAngle(), Arm.setpoint));
+                break;
+            case low:
+
+                //low
+                  Arm.setAngle(0);
+                break;
+            case medium:
+
+                //medium
+                   Arm.setAngle(70);
+                break;
+            case high:
+
+                //high
+                  Arm.setAngle(100);
+                break;
+            case speakerShot:
+
+                //high
+                  Arm.setAngle(50);
+                break;
+          
+}
+
+     Arm.RunArm(armController.calculate(Arm.getAngle(), Arm.setpoint));
     SmartDashboard.putNumber("arm input", input);
     SmartDashboard.putNumber("arm angle", Arm.getAngle());
   }

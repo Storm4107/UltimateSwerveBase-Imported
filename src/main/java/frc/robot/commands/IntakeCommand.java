@@ -60,7 +60,12 @@ private double IntakeInput;
             case intake:
 
                 //intake
+                if (Intake.objectSensor()) {
                   IntakeInput = 1;
+                }
+                else {
+                  IntakeInput = 0;
+                  }
                //TODO: Add sensor input
         }
 

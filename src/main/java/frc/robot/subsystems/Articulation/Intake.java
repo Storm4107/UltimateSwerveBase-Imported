@@ -19,14 +19,13 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
  private CANSparkMax Intake = new CANSparkMax(Constants.articulation.intake, MotorType.kBrushless);
- //private DigitalInput sensor = new DigitalInput(Constants.articulation.sensor);
- private boolean sensor = true;
+ public DigitalInput sensor = new DigitalInput(Constants.articulation.sensor);
 
   public Intake() {
     //motor configuration
     Intake.restoreFactoryDefaults();
     Intake.setInverted(false);
-    Intake.setSmartCurrentLimit(20);
+    Intake.setSmartCurrentLimit(30);
     Intake.setIdleMode(IdleMode.kBrake);
     Intake.burnFlash();
   }
@@ -45,13 +44,13 @@ public class Intake extends SubsystemBase {
   }
 
    public boolean objectSensor() {
-   // return sensor.get();
-   return false;
+    return sensor.get();
   } 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake motor temperature", getTemp());
+    SmartDashboard.putBoolean("object sensor", objectSensor());
   }
 }
