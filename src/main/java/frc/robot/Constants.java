@@ -26,7 +26,7 @@ public final class Constants {
 
         //arm CANcoder ID
         public static final int armEncoder = 39;
-        public static final double armEncoderOffset = 63.281;
+        public static final double armEncoderOffset = 82;
 
         //Arm limits
         public static final int fwdLimit = 200;

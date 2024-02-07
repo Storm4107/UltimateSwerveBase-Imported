@@ -57,7 +57,7 @@ switch(States.armState){
             case medium:
 
                 //medium
-                   Arm.setAngle(70);
+                   Arm.setAngle(76);
                 break;
             case high:
 
