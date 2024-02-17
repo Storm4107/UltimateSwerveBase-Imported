@@ -17,7 +17,7 @@ public class States {
   public static enum ShooterStates {
         standard, spinup, shoot
     }
-    public static ShooterStates shooterState = ShooterStates.spinup;
+    public static ShooterStates shooterState = ShooterStates.standard;
 
 //arm states
 public static enum ArmStates {

@@ -39,16 +39,16 @@ private DoubleSupplier spinSup;
             case standard:
 
                 //standard
-                  ShooterInput = 0;
+                ShooterInput = ((spinSup.getAsDouble() + 1)/2);
 
                 break;
             case shoot:
 
                 //shoot
-                  ShooterInput = 1;
+                  ShooterInput = 0.75;
                 break;
             case spinup:
-            ShooterInput = ((spinSup.getAsDouble() + 1)/2);
+            ShooterInput = 0.2;
         }
 
 //Intake input

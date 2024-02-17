@@ -64,7 +64,7 @@ public class Arm extends SubsystemBase {
 
    armLeft.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
    armRight.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-
+   
    //Soft Limit sets
    armLeft.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.articulation.fwdLimit);
    armRight.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.articulation.fwdLimit);
@@ -120,6 +120,10 @@ public class Arm extends SubsystemBase {
   //Encoder angle grab
    public double getAngle() {
         return armEncoder.getAbsolutePosition() - Constants.articulation.armEncoderOffset;
+    }
+
+    public double getVelocity() {
+        return armEncoder.getVelocity();
     }
 
   

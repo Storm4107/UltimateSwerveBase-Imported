@@ -7,7 +7,9 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -20,6 +22,7 @@ public class ArmCommand extends Command {
   private DoubleSupplier inputSup;
 
   private PIDController armController;
+  private ArmFeedforward armFeedForward;
 
   /** Creates a new ArmCommand. */
   public ArmCommand(Arm Arm, DoubleSupplier inputSup) {
@@ -28,7 +31,8 @@ public class ArmCommand extends Command {
     addRequirements(Arm);
 
     armController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
-    armController.setTolerance(0.25);
+    armFeedForward = new ArmFeedforward(Constants.articulation.armKS, Constants.articulation.armKG, Constants.articulation.armKV, Constants.articulation.armKA);
+    armController.setTolerance(0.001);
 
   }
 
@@ -42,6 +46,8 @@ public class ArmCommand extends Command {
     double input = MathUtil.applyDeadband(inputSup.getAsDouble(), Constants.armDeadband);
 
     double delta = input * Constants.articulation.ScalingRatio;
+
+    double FF = Math.cos(Arm.getAngle() * (Math.PI/180));
     
 switch(States.armState){
             case standard:
@@ -51,29 +57,30 @@ switch(States.armState){
                 break;
             case low:
 
-                //low
-                  Arm.setAngle(0);
+                //low ground
+                  Arm.setAngle(-3);
                 break;
             case medium:
 
-                //medium
-                   Arm.setAngle(76);
+                //medium source transit
+                   Arm.setAngle(58);
                 break;
             case high:
 
-                //high
-                  Arm.setAngle(100);
+                //high amp
+                  Arm.setAngle(90);
                 break;
             case speakerShot:
 
-                //high
-                  Arm.setAngle(50);
+                //Speaker shoot
+                  Arm.setAngle(18);
                 break;
           
 }
 
      Arm.RunArm(armController.calculate(Arm.getAngle(), Arm.setpoint));
     SmartDashboard.putNumber("arm input", input);
+    SmartDashboard.putNumber("armFF", FF);
     SmartDashboard.putNumber("arm angle", Arm.getAngle());
   }
 

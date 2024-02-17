@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -41,7 +42,10 @@ public class RobotContainer {
     private JoystickButton high = new JoystickButton(operator, 8);
     private JoystickButton medium = new JoystickButton(operator, 10);
     private JoystickButton low = new JoystickButton(operator, 12);
+    private JoystickButton armControl = new JoystickButton(operator, 11);
     private JoystickButton speakerShot = new JoystickButton(operator, 5);
+    private JoystickButton revShot = new JoystickButton(operator, 3);
+    private JoystickButton shooterOff = new JoystickButton(operator, 4);
 
     //intake buttons
     private JoystickButton shoot = new JoystickButton(operator, 1); //trigger
@@ -100,13 +104,6 @@ public class RobotContainer {
         )
        );
 
-       new SequentialCommandGroup(
-        new InstantCommand(() -> States.armState = States.ArmStates.speakerShot),
-        new RevShooter(s_shooter),
-        new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot)
-       );
-
-
 
         // Configure the button bindings
         configureButtonBindings();
@@ -157,23 +154,38 @@ public class RobotContainer {
 
         //Arm presets
         low.onTrue(
-            new InstantCommand(() -> States.armState = States.ArmStates.low)).onFalse(
-            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+            new ParallelCommandGroup(
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.standard),
+                new InstantCommand(() -> States.armState = States.ArmStates.low)
+            )
         );
         medium.onTrue(
-             new InstantCommand(() -> States.armState = States.ArmStates.medium)).onFalse(
-            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+             new ParallelCommandGroup(
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.standard),
+                new InstantCommand(() -> States.armState = States.ArmStates.medium)
+            )
         );
         high.onTrue(
-             new InstantCommand(() -> States.armState = States.ArmStates.high)).onFalse(
-            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+             new ParallelCommandGroup(
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.spinup),
+                new InstantCommand(() -> States.armState = States.ArmStates.high)
+            )
         );
         speakerShot.onTrue(
-            new SequentialCommandGroup(
-        new InstantCommand(() -> States.armState = States.ArmStates.speakerShot),
-        new RevShooter(s_shooter),
-        new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot)
-        )
+            new ParallelCommandGroup(
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.shoot),
+                new InstantCommand(() -> States.armState = States.ArmStates.speakerShot)
+            )
+            
+        );
+        armControl.onTrue(
+            new InstantCommand(() -> States.armState = States.ArmStates.standard)
+        );
+        revShot.onTrue(
+            new InstantCommand(() -> States.shooterState = States.ShooterStates.spinup)
+        );
+        shooterOff.onTrue(
+            new InstantCommand(() -> States.shooterState = States.ShooterStates.standard)
         );
           
         
