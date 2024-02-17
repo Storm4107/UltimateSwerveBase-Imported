@@ -73,7 +73,7 @@ switch(States.armState){
             case speakerShot:
 
                 //Speaker shoot
-                  Arm.setAngle(18);
+                  Arm.setAngle(25);
                 break;
           
 }

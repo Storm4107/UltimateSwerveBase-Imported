@@ -137,14 +137,11 @@ public class RevSwerve extends SubsystemBase {
         }
     }    
     public Pose2d getPose() {
-        Pose2d p =  swerveOdometry.getPoseMeters();
-        return new Pose2d(-p.getX(),-p.getY(),  p.getRotation());
+        return swerveOdometry.getPoseMeters();
     }
     public void resetOdometry(Pose2d pose) {
         
-        swerveOdometry.resetPosition(new Rotation2d(), getModulePositions(), pose);
-        zeroGyro(pose.getRotation().getDegrees());
-       
+        swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
     }
     public SwerveModuleState[] getModuleStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];

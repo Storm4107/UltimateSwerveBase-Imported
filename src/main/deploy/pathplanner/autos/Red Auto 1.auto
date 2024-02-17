@@ -1,0 +1,145 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.077253215004655,
+      "y": 7.303644500527436
+    },
+    "rotation": -179.73248072310577
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker position - red"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pickup Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "First Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker position - red"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pickup Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Second note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Speaker position - red"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOff"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -123,6 +123,11 @@ public class RobotContainer {
                 new InstantCommand(() -> States.armState = States.ArmStates.speakerShot)
             ));
 
+        NamedCommands.registerCommand("Pickup Position", new ParallelCommandGroup(
+                new InstantCommand(() -> States.intakeState = States.IntakeStates.intake),
+                new InstantCommand(() -> States.armState = States.ArmStates.low)
+            ));
+
         NamedCommands.registerCommand("EjectOn", new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot));
         NamedCommands.registerCommand("EjectOff", new InstantCommand(() -> States.intakeState = States.IntakeStates.standard));
         NamedCommands.registerCommand("Position reset",  new ParallelCommandGroup(
@@ -224,6 +229,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return null;
+        return autoChooser.getSelected();
     }
 }
