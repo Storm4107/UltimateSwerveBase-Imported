@@ -10,6 +10,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import java.text.BreakIterator;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -190,6 +192,9 @@ public class RevSwerve extends SubsystemBase {
     public void periodic() {
         swerveOdometry.update(getYaw(), getModulePositions());  
         field.setRobotPose(getPose());
+
+        Logger.recordOutput("Mystates", getModuleStates());
+         Logger.recordOutput("MyPose", getPose());
 
         SmartDashboard.putNumber("yaw", gyro.getYaw());
         for(SwerveModule mod : mSwerveMods) {
