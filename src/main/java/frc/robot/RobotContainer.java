@@ -18,8 +18,9 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Articulation.Arm;
 import frc.robot.subsystems.Articulation.Intake;
-import frc.robot.subsystems.Articulation.PoseEstimator;
+import frc.robot.subsystems.Vision.PoseEstimator;
 import frc.robot.subsystems.Articulation.Shooter;
+import frc.robot.subsystems.Vision.Vision;
 import frc.robot.subsystems.swerve.rev.RevSwerve;
 
 /**
@@ -69,11 +70,13 @@ public class RobotContainer {
     private final POVButton left = new POVButton(driver, 0);
 
     /* Subsystems */
-    private final RevSwerve s_Swerve = new RevSwerve();
+    private final PoseEstimator s_PoseEstimator = new PoseEstimator();
+    private final RevSwerve s_Swerve = new RevSwerve(s_PoseEstimator);
+    private final Vision s_Vision = new Vision(s_PoseEstimator);
     private final Arm s_arm = new Arm();
     private final Intake s_intake = new Intake();
     private final Shooter s_shooter = new Shooter();
-    private final PoseEstimator s_PoseEstimator = new PoseEstimator();
+  
 
     /* AutoChooser */
     private final SendableChooser<Command> autoChooser;
