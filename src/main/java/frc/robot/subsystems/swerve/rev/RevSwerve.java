@@ -1,14 +1,15 @@
 package frc.robot.subsystems.swerve.rev;
 
 import frc.lib.math.GeometryUtils;
-import frc.robot.Constants;
+
 import frc.robot.constants.RevSwerveConstants;
+import frc.robot.subsystems.Vision.PoseEstimator;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
-import java.text.BreakIterator;
+
 
 import org.littletonrobotics.junction.Logger;
 
@@ -30,14 +31,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RevSwerve extends SubsystemBase {
-
+    private PoseEstimator s_PoseEstimator = new PoseEstimator();
 
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     private Field2d field = new Field2d();
 
-    public RevSwerve() {
+    public RevSwerve(PoseEstimator s_PoseEstimator) {
+        this.s_PoseEstimator = s_PoseEstimator;
         
         gyro = new Pigeon2(RevSwerveConstants.REV.pigeonID);
         gyro.configFactoryDefault();
@@ -137,7 +139,8 @@ public class RevSwerve extends SubsystemBase {
         }
     }    
     public Pose2d getPose() {
-        return swerveOdometry.getPoseMeters();
+       // return swerveOdometry.getPoseMeters();
+       return s_PoseEstimator.getEstimatedPosition();
     }
     public void resetOdometry(Pose2d pose) {
         

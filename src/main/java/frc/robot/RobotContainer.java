@@ -81,6 +81,7 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        //Swerve Command
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -93,6 +94,7 @@ public class RobotContainer {
             )
         );
 
+       //Arm command
        s_arm.setDefaultCommand(
         new ArmCommand(
             s_arm,
@@ -100,19 +102,20 @@ public class RobotContainer {
              )
        );
 
+       //Intake Command
        s_intake.setDefaultCommand(
         new IntakeCommand(
             s_intake
             )
        );
 
+       //shooter command
        s_shooter.setDefaultCommand(
         new ShooterCommand(
             s_shooter,
             () -> operator.getRawAxis(shooterSpeedDial)
         )
        );
-
 
         // Configure the button bindings
         configureButtonBindings();
@@ -129,10 +132,13 @@ public class RobotContainer {
             ));
 
         NamedCommands.registerCommand("EjectOn", new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot));
+
         NamedCommands.registerCommand("EjectOff", new InstantCommand(() -> States.intakeState = States.IntakeStates.standard));
+
         NamedCommands.registerCommand("Position reset",  new ParallelCommandGroup(
                 new InstantCommand(() -> States.shooterState = States.ShooterStates.standard),
-                new InstantCommand(() -> States.armState = States.ArmStates.medium)));
+                new InstantCommand(() -> States.armState = States.ArmStates.medium)
+            ));
     
         
         //Auto chooser
