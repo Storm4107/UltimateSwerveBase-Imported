@@ -1,0 +1,163 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3,
+      "y": 5.55
+    },
+    "rotation": 0.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pickup Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To note 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To speaker 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pickup Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To note 1 (medium)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Speaker 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Pickup Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To note 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shooter Position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Speaker 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EjectOn"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Position Reset"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "To Center Line"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

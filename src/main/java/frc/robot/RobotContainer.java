@@ -138,9 +138,10 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("EjectOff", new InstantCommand(() -> States.intakeState = States.IntakeStates.standard));
 
-        NamedCommands.registerCommand("Position reset",  new ParallelCommandGroup(
+        NamedCommands.registerCommand("Position Reset",  new ParallelCommandGroup(
                 new InstantCommand(() -> States.shooterState = States.ShooterStates.standard),
-                new InstantCommand(() -> States.armState = States.ArmStates.medium)
+                new InstantCommand(() -> States.armState = States.ArmStates.medium),
+                new InstantCommand(() -> States.intakeState = States.IntakeStates.standard)
             ));
     
         
