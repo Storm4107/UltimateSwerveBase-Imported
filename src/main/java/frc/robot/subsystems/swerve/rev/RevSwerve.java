@@ -38,7 +38,7 @@ public class RevSwerve extends SubsystemBase {
     public Pigeon2 gyro;
     private Field2d field = new Field2d();
 
-    public RevSwerve(PoseEstimator s_PoseEstimator2) {
+    public RevSwerve(PoseEstimator s_PoseEstimator) {
         this.s_PoseEstimator = s_PoseEstimator;
         
         gyro = new Pigeon2(RevSwerveConstants.REV.pigeonID);
@@ -139,8 +139,8 @@ public class RevSwerve extends SubsystemBase {
         }
     }    
     public Pose2d getPose() {
-       // return swerveOdometry.getPoseMeters();
-       return s_PoseEstimator.getEstimatedPosition();
+       return swerveOdometry.getPoseMeters();
+       //return s_PoseEstimator.getEstimatedPosition();
     }
     public void resetOdometry(Pose2d pose) {
         

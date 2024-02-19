@@ -14,7 +14,7 @@ public class Vision extends SubsystemBase {
     private PoseEstimator s_PoseEstimator;
     public Limelight LL;
 
-    public Vision(PoseEstimator s_PoseEstimator2) {
+    public Vision(PoseEstimator s_PoseEstimator) {
         this.s_PoseEstimator = s_PoseEstimator;
         LL = new Limelight(Constants.Vision.leftLLName);
 
