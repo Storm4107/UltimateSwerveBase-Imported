@@ -17,12 +17,11 @@ import frc.robot.States;
 import frc.robot.subsystems.Articulation.Arm;
 
 public class ArmCommand extends Command {
-  private Arm Arm;
-  private boolean setpointreached;
-  private DoubleSupplier inputSup;
 
-  private PIDController armController;
-  private ArmFeedforward armFeedForward;
+  private Arm Arm;
+  private DoubleSupplier inputSup;
+  private PIDController leftController;
+  private PIDController rightController;
 
   /** Creates a new ArmCommand. */
   public ArmCommand(Arm Arm, DoubleSupplier inputSup) {
@@ -30,9 +29,11 @@ public class ArmCommand extends Command {
     this.inputSup = inputSup;
     addRequirements(Arm);
 
-    armController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
-    armFeedForward = new ArmFeedforward(Constants.articulation.armKS, Constants.articulation.armKG, Constants.articulation.armKV, Constants.articulation.armKA);
-    armController.setTolerance(0.001);
+    leftController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
+    leftController.setTolerance(0.001);
+
+    rightController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
+    rightController.setTolerance(0.001);
 
   }
 
@@ -46,8 +47,6 @@ public class ArmCommand extends Command {
     double input = MathUtil.applyDeadband(inputSup.getAsDouble(), Constants.armDeadband);
 
     double delta = input * Constants.articulation.ScalingRatio;
-
-    double FF = Math.cos(Arm.getAngle() * (Math.PI/180));
     
 switch(States.armState){
             case standard:
@@ -58,12 +57,12 @@ switch(States.armState){
             case low:
 
                 //low ground
-                  Arm.setAngle(-3);
+                  Arm.setAngle(-2.5);
                 break;
             case medium:
 
                 //medium source transit
-                   Arm.setAngle(58);
+                   Arm.setAngle(60);
                 break;
             case high:
 
@@ -73,15 +72,22 @@ switch(States.armState){
             case speakerShot:
 
                 //Speaker shoot
-                  Arm.setAngle(25);
+                  Arm.setAngle(21.5);
                 break;
+            case podiumShot:
+
+                //podium shoot
+                  Arm.setAngle(45);
+                break;
+            
           
 }
 
-     Arm.RunArm(armController.calculate(Arm.getAngle(), Arm.setpoint));
-    SmartDashboard.putNumber("arm input", input);
-    SmartDashboard.putNumber("armFF", FF);
-    SmartDashboard.putNumber("arm angle", Arm.getAngle());
+     Arm.RunLeftArm(leftController.calculate(Arm.getLeftAngle(), Arm.setpoint));
+     Arm.RunRightArm(rightController.calculate(Arm.getRightAngle(), Arm.setpoint));
+    SmartDashboard.putNumber("left Angle", Arm.getLeftAngle());
+    SmartDashboard.putNumber("right Angle", Arm.getRightAngle());
+    SmartDashboard.putNumber("Setpoint", Arm.setpoint);
   }
 
   // Called once the command ends or is interrupted.

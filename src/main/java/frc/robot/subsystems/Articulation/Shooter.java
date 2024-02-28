@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
 
     bottomShooter.restoreFactoryDefaults();
     bottomShooter.setInverted(true);
-    bottomShooter.setSmartCurrentLimit(40);
+    bottomShooter.setSmartCurrentLimit(5);
     bottomShooter.setIdleMode(IdleMode.kCoast);
     bottomShooter.burnFlash();
 
@@ -34,6 +34,7 @@ public class Shooter extends SubsystemBase {
     topShooter.setSmartCurrentLimit(40);
     topShooter.setIdleMode(IdleMode.kCoast);
     topShooter.burnFlash();
+  
 
     topEncoder = topShooter.getEncoder();
     bottomEncoder = bottomShooter.getEncoder();

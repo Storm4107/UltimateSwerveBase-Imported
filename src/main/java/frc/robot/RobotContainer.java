@@ -53,6 +53,7 @@ public class RobotContainer {
     private JoystickButton speakerShot = new JoystickButton(operator, 5);
     private JoystickButton revShot = new JoystickButton(operator, 3);
     private JoystickButton shooterOff = new JoystickButton(operator, 4);
+    private JoystickButton podiumShot = new JoystickButton(operator, 6);
 
     //intake buttons
     private JoystickButton shoot = new JoystickButton(operator, 1); //trigger
@@ -216,6 +217,13 @@ public class RobotContainer {
             new ParallelCommandGroup(
                 new InstantCommand(() -> States.shooterState = States.ShooterStates.shoot),
                 new InstantCommand(() -> States.armState = States.ArmStates.speakerShot)
+            )
+            
+        );
+        podiumShot.onTrue(
+            new ParallelCommandGroup(
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.shoot),
+                new InstantCommand(() -> States.armState = States.ArmStates.podiumShot)
             )
             
         );

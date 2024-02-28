@@ -26,24 +26,21 @@ public final class Constants {
 
         //arm CANcoder ID
         public static final int armEncoder = 39;
-        public static final double armEncoderOffset = 99.0;
+        public static final double armEncoderOffset = 75;
 
         //Arm limits
-        public static final int fwdLimit = 200;
-        public static final int revLimit = 0;
+        public static final int fwdLimit = 2000;
+        public static final int revLimit = -3;
 
         //Arm PID Constants
-        public static final double armP = 0.04;
-        public static final double armI = 0.0;
-        public static final double armD = 0.0;
+        public static final double armP = 0.03;
+        public static final double armI = 0.00;
+        public static final double armD = 0.00;
         public static final double armK = 0.0;
 
         //arm FeedForward Constants
-        public static final double armKS = 0.0;
-        public static final double armKG = 0.4;
-        public static final double armKV = 4.05;
-        public static final double armKA = 0.02;
-
+        public static final double armFF = 0.00;
+        
         //Shooter PID Constants
         public static final double shooterP = 0.0;
         public static final double shooterI = 0.0;
@@ -51,7 +48,9 @@ public final class Constants {
         public static final double shooterK = 0.0;
 
         //arm converstion math
-        public static final double gearRatio = (5*5*5*(40/24));
+        public static final double gearRatio = (5*5*5);
+        //60/14 sprocket ratio
+        public static final double ChainRatio = 8.91;
 
         //Arm controller polling rate
         public static final double ScalingRatio = 1.5;

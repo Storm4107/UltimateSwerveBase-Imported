@@ -24,27 +24,23 @@ import frc.robot.States;
 import frc.robot.subsystems.swerve.rev.RevSwerveConfig;
 
 public class Arm extends SubsystemBase {
-  //arm PID controller
- private PIDController angleController = new PIDController(Constants.articulation.armP, Constants.articulation.armI, Constants.articulation.armD);
   
  private CANSparkMax armLeft = new CANSparkMax(Constants.articulation.armLeft, MotorType.kBrushless);
  private CANSparkMax armRight = new CANSparkMax(Constants.articulation.armRight, MotorType.kBrushless);
 
- public CANCoderConfiguration CancoderConfig;
-
- public CANCoder armEncoder = new CANCoder(Constants.articulation.armEncoder);
-
  public DigitalInput limitSwitch = new DigitalInput(Constants.articulation.limitSwitch);
 
  public double setpoint = 0;
+ 
+ public double armRatio = Constants.articulation.ChainRatio * Constants.articulation.gearRatio;
 
-  RelativeEncoder neoEncoder;
+  RelativeEncoder leftEncoder;
+  RelativeEncoder rightEncoder;
   
   /** Creates a new Arm. */
   public Arm() {
 
     //create arm motors
- 
    armLeft.restoreFactoryDefaults();
    armRight.restoreFactoryDefaults();
 
@@ -72,13 +68,16 @@ public class Arm extends SubsystemBase {
    armLeft.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.articulation.revLimit);
    armRight.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.articulation.revLimit);
 
-   neoEncoder = armLeft.getEncoder();
-   neoEncoder.setPosition(0);
-   
-   
+   leftEncoder = armLeft.getEncoder();
+   leftEncoder.setPositionConversionFactor(.7);
+   leftEncoder.setPosition(0);
+
+   rightEncoder = armRight.getEncoder();
+   rightEncoder.setPositionConversionFactor(.7);
+   rightEncoder.setPosition(0);
+
    armLeft.burnFlash();
    armRight.burnFlash();
-
   }
 
   //angle set
@@ -87,21 +86,23 @@ public class Arm extends SubsystemBase {
   }
 
    public void setNeoZero(double position){
-    neoEncoder.setPosition(position);
+    leftEncoder.setPosition(position);
+    rightEncoder.setPosition(position);
+    setpoint = position;
   }
 
   public void adjustSetpoint(double delta) {
-    if (getNeoAngle() > Constants.articulation.fwdLimit) {
+    if (getLeftAngle() > Constants.articulation.fwdLimit) {
    if (delta > 0) {
     delta= 0;
     setpoint = Constants.articulation.fwdLimit;
    }
 
     } else{
-      if (getNeoAngle() < Constants.articulation.revLimit) {
+      if (getLeftAngle() < Constants.articulation.revLimit) {
         if (delta < 0) {
     delta = 0;
-    setpoint = 0;
+    setpoint = Constants.articulation.revLimit;
    } else {
     delta = delta;
    }
@@ -112,36 +113,46 @@ public class Arm extends SubsystemBase {
   }
 
   //live adjustment
-  public void RunArm(double input){
-    armLeft.set(input);
-    armRight.set(input);
+  public void RunLeftArm(double input){
+    armLeft.set(input + leftFF());
   }
 
-  //Encoder angle grab
-   public double getAngle() {
-        return armEncoder.getAbsolutePosition() - Constants.articulation.armEncoderOffset;
-    }
+  public void RunRightArm(double input){
+    armRight.set(input + rightFF());
+  }
 
-    public double getVelocity() {
-        return armEncoder.getVelocity();
-    }
+  public double leftFF(){
+    double FFOutput = Math.cos(getLeftAngle() * (Math.PI/180) * Constants.articulation.armFF);
+   // return FFOutput;
+   return 0;
+  }
 
-  
-   public double getNeoAngle() {
-    return neoEncoder.getPosition();
+  public double rightFF(){
+    double FFOutput = Math.cos(getLeftAngle() * (Math.PI/180) * Constants.articulation.armFF);
+   // return FFOutput;
+   return 0;
+  }
+
+  //Encoder angle grab 
+  public double getLeftAngle() {
+    return (leftEncoder.getPosition() - 2.5);
    }
 
-   public double getNeoAdjustedAngle() {
-    return (neoEncoder.getPosition() * 90/134.7);
+  public double getRightAngle() {
+    return (rightEncoder.getPosition() - 2.5);
    }
+
+  public double getArmAngle() {
+    return (getLeftAngle() + getRightAngle() / 2);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run  
-    SmartDashboard.putNumber("Neo raw position", getNeoAngle());
-    SmartDashboard.putNumber("Neo position", getNeoAdjustedAngle());
+    SmartDashboard.putNumber("Neo position", getArmAngle());
+    SmartDashboard.putNumber("Neo Conversion factor", leftEncoder.getPositionConversionFactor());
     SmartDashboard.putString("Arm state", States.armState.toString());
-    SmartDashboard.putBoolean("Arm bottom Limit", limitSwitch.get());
-    SmartDashboard.putNumber("Arm CANCoder", getAngle());
+    SmartDashboard.putNumber("Left input", armLeft.getAppliedOutput());
+    SmartDashboard.putNumber("Right input", armRight.getAppliedOutput());
   }
 }

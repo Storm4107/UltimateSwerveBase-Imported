@@ -21,7 +21,7 @@ public class States {
 
 //arm states
 public static enum ArmStates {
-        standard, low, medium, high, speakerShot
+        standard, low, medium, high, speakerShot, podiumShot
     }
     public static ArmStates armState = ArmStates.standard;
 }
