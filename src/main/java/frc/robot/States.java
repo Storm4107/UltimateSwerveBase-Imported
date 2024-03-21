@@ -15,13 +15,13 @@ public class States {
     
 //shooter states
   public static enum ShooterStates {
-        standard, spinup, shoot
+        standard, spinup, shoot, amp
     }
     public static ShooterStates shooterState = ShooterStates.standard;
 
 //arm states
 public static enum ArmStates {
-        standard, low, medium, high, speakerShot
+        standard, low, medium, high, speakerShot, podiumShot
     }
     public static ArmStates armState = ArmStates.standard;
 }

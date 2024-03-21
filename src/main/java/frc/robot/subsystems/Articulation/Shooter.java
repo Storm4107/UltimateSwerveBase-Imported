@@ -34,6 +34,7 @@ public class Shooter extends SubsystemBase {
     topShooter.setSmartCurrentLimit(40);
     topShooter.setIdleMode(IdleMode.kCoast);
     topShooter.burnFlash();
+  
 
     topEncoder = topShooter.getEncoder();
     bottomEncoder = bottomShooter.getEncoder();
@@ -41,10 +42,11 @@ public class Shooter extends SubsystemBase {
   }
 
    //shoot Command
-   public void runShooter(double power) {
+   public void runShooter(double power, double diff) {
     topShooter.set(power);
-    bottomShooter.set(power);
+    bottomShooter.set(power - diff);
   }
+
 
   public double getTopShooterRPM() {
    return topEncoder.getVelocity();

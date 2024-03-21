@@ -41,7 +41,7 @@ private PIDController velController;
   public void execute() {
 
  //Intake PID input
-        Shooter.runShooter(velController.calculate(Shooter.getTopShooterRPM(), 2500));
+        Shooter.runShooter(velController.calculate(Shooter.getTopShooterRPM(), 2500), 0);
 
 SmartDashboard.putString("Shooter state", States.shooterState.toString());
 SmartDashboard.putNumber("Shooter speed", ShooterInput);
