@@ -65,6 +65,8 @@ public class RobotContainer {
 
     private final JoystickButton dampen = new JoystickButton(driver, 18);
 
+    private final JoystickButton zeroArm =  new JoystickButton(driver, 5);
+
     private final POVButton up = new POVButton(driver, 90);
     private final POVButton down = new POVButton(driver, 270);
     private final POVButton right = new POVButton(driver, 180);
@@ -161,7 +163,7 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
-
+        zeroArm.onTrue(new InstantCommand(() -> s_arm.zeroArm()));
         //heading lock bindings
         up.onTrue(
             new InstantCommand(() -> States.driveState = States.DriveStates.d90)).onFalse(
@@ -209,7 +211,7 @@ public class RobotContainer {
         );
         high.onTrue(
              new ParallelCommandGroup(
-                new InstantCommand(() -> States.shooterState = States.ShooterStates.spinup),
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.amp),
                 new InstantCommand(() -> States.armState = States.ArmStates.high)
             )
         );

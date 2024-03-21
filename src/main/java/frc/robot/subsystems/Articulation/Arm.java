@@ -11,6 +11,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -91,8 +92,32 @@ public class Arm extends SubsystemBase {
     setpoint = position;
   }
 
+  public void zeroArm(){
+  //  leftEncoder.setPosition(0);
+  //  rightEncoder.setPosition(0);
+  }
+  
+ /* public void disableArmLimits(){
+    armLeft.enableSoftLimit(SoftLimitDirection.kForward, false);
+    armRight.enableSoftLimit(SoftLimitDirection.kForward, false);
+
+    armLeft.enableSoftLimit(SoftLimitDirection.kReverse, false);
+    armRight.enableSoftLimit(SoftLimitDirection.kReverse, false);
+
+  }*/
+
+/*   public void enableArmLimits(){
+    armLeft.enableSoftLimit(SoftLimitDirection.kForward, true);
+    armRight.enableSoftLimit(SoftLimitDirection.kForward, true);
+
+    armLeft.enableSoftLimit(SoftLimitDirection.kReverse, true);
+    armRight.enableSoftLimit(SoftLimitDirection.kReverse, true);
+
+  } */ 
+
+
   public void adjustSetpoint(double delta) {
-    if (getLeftAngle() > Constants.articulation.fwdLimit) {
+  /*  if (getLeftAngle() > Constants.articulation.fwdLimit) {
    if (delta > 0) {
     delta= 0;
     setpoint = Constants.articulation.fwdLimit;
@@ -100,15 +125,15 @@ public class Arm extends SubsystemBase {
 
     } else{
       if (getLeftAngle() < Constants.articulation.revLimit) {
-        if (delta < 0) {
+       if (delta < 0) {
     delta = 0;
     setpoint = Constants.articulation.revLimit;
    } else {
     delta = delta;
    }
-      } 
+    } 
        
-    }
+    }*/
     setpoint += delta;
   }
 

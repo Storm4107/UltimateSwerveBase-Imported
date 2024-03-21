@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.077253215004655,
-      "y": 7.303644500527436
+      "x": 0.6355134892950695,
+      "y": 6.563541857807322
     },
-    "rotation": -179.73248072310577
+    "rotation": 62.354024636261336
   },
   "command": {
     "type": "sequential",
@@ -18,9 +18,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Speaker position - red"
+            "waitTime": 1.5
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -48,15 +48,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "First Note"
+            "waitTime": 0.0
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "EjectOff"
+            "pathName": "Blue-FirstNote-Angle"
           }
         },
         {
@@ -68,7 +68,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker position - red"
+            "pathName": "Blue-SpeakerShot-Angle"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
           }
         },
         {
@@ -80,55 +86,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "EjectOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Pickup Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Second note"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "EjectOff"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shooter Position"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Speaker position - red"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "EjectOn"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {

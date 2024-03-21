@@ -51,32 +51,43 @@ public class ArmCommand extends Command {
 switch(States.armState){
             case standard:
                 //standard
+                 
+                // Arm.disableArmLimits();
                  Arm.adjustSetpoint(delta);
-
                 break;
             case low:
 
                 //low ground
+                  
+                //  Arm.enableArmLimits();
                   Arm.setAngle(-2.5);
                 break;
             case medium:
 
                 //medium source transit
-                   Arm.setAngle(60);
+                   
+                  // Arm.enableArmLimits();
+                   Arm.setAngle(69);
                 break;
             case high:
 
                 //high amp
+                  
+                 // Arm.enableArmLimits();
                   Arm.setAngle(90);
                 break;
             case speakerShot:
 
                 //Speaker shoot
+                  
+                 // Arm.enableArmLimits();
                   Arm.setAngle(21.5);
                 break;
             case podiumShot:
 
                 //podium shoot
+                  
+                 // Arm.enableArmLimits();
                   Arm.setAngle(45);
                 break;
             

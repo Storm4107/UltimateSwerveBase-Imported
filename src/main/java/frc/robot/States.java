@@ -15,7 +15,7 @@ public class States {
     
 //shooter states
   public static enum ShooterStates {
-        standard, spinup, shoot
+        standard, spinup, shoot, amp
     }
     public static ShooterStates shooterState = ShooterStates.standard;
 
