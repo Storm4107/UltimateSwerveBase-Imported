@@ -19,6 +19,7 @@ public class ShooterCommand extends Command {
 
 private Shooter Shooter;
 private double ShooterInput;
+private double DiffInput;
 private DoubleSupplier spinSup;
   public ShooterCommand(Shooter Shooter, DoubleSupplier spinSup) {
     this.Shooter = Shooter;
@@ -40,19 +41,31 @@ private DoubleSupplier spinSup;
 
                 //standard
                 ShooterInput = ((spinSup.getAsDouble() + 1)/2);
+                DiffInput = 0;
 
                 break;
             case shoot:
 
                 //shoot
                   ShooterInput = 0.75;
+                  DiffInput = 0;
+
                 break;
-            case spinup:
-            ShooterInput = 0.2;
+            case amp:
+
+                //shoot
+                  ShooterInput = 0.2;
+                  DiffInput = 0.1;
+
+                break;
+             case spinup:
+                  ShooterInput = 0.2;
+                  DiffInput = 0;
+
         }
 
 //Intake input
-Shooter.runShooter(ShooterInput);
+Shooter.runShooter(ShooterInput, DiffInput);
 SmartDashboard.putString("Shooter state", States.shooterState.toString());
 SmartDashboard.putNumber("Shooter speed", ShooterInput);
 
