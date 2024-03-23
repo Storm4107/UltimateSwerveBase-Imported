@@ -3,13 +3,13 @@
   "robotLength": 0.88,
   "holonomicMode": true,
   "pathFolders": [
+    "4 note auto - paths",
     "Deprecated paths",
-    "4 note auto - paths"
+    "one note auto - paths"
   ],
   "autoFolders": [
     "Deprecated autos"
   ],
-
   "defaultMaxVel": 5.0,
   "defaultMaxAccel": 4.0,
   "defaultMaxAngVel": 540.0,
