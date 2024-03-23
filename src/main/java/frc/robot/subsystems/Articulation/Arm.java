@@ -44,6 +44,8 @@ public class Arm extends SubsystemBase {
     //create arm motors
    armLeft.restoreFactoryDefaults();
    armRight.restoreFactoryDefaults();
+   //armRight.follow(armLeft);
+   //armRight.follow(armLeft,true);
 
    //Arm configuration
    armRight.setInverted(true);

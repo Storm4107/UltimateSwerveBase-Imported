@@ -46,6 +46,12 @@
           "data": {
             "pathName": "FirstNote-FarAngle"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "FirstNote-FarAngle2"
+          }
         }
       ]
     }

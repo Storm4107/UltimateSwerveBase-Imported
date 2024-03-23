@@ -52,6 +52,12 @@
           "data": {
             "pathName": "Stage-FarAngle"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage-FarAngle2"
+          }
         }
       ]
     }
