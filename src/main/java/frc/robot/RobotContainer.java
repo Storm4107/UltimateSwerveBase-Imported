@@ -136,6 +136,8 @@ public class RobotContainer {
                 new InstantCommand(() -> States.intakeState = States.IntakeStates.intake),
                 new InstantCommand(() -> States.armState = States.ArmStates.low)
             ));
+        
+        NamedCommands.registerCommand("Travel Position", new InstantCommand(() -> States.armState = States.ArmStates.medium));
 
         NamedCommands.registerCommand("EjectOn", new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot));
 
