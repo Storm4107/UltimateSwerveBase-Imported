@@ -224,7 +224,7 @@ public class RobotContainer {
         );
         podiumShot.onTrue(
             new ParallelCommandGroup(
-                new InstantCommand(() -> States.shooterState = States.ShooterStates.shoot),
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.podium),
                 new InstantCommand(() -> States.armState = States.ArmStates.podiumShot)
             )
             

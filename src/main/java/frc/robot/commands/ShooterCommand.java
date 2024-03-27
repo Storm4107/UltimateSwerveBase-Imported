@@ -51,6 +51,11 @@ private DoubleSupplier spinSup;
                   DiffInput = 0;
 
                 break;
+            case podium:
+                //long range shoot
+                  ShooterInput = 0.90;
+                  DiffInput = 0;
+                  break;
             case amp:
 
                 //shoot
