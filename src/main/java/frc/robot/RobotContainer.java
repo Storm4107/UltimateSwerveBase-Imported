@@ -136,6 +136,8 @@ public class RobotContainer {
                 new InstantCommand(() -> States.intakeState = States.IntakeStates.intake),
                 new InstantCommand(() -> States.armState = States.ArmStates.low)
             ));
+        
+        NamedCommands.registerCommand("Travel Position", new InstantCommand(() -> States.armState = States.ArmStates.medium));
 
         NamedCommands.registerCommand("EjectOn", new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot));
 
@@ -224,7 +226,7 @@ public class RobotContainer {
         );
         podiumShot.onTrue(
             new ParallelCommandGroup(
-                new InstantCommand(() -> States.shooterState = States.ShooterStates.shoot),
+                new InstantCommand(() -> States.shooterState = States.ShooterStates.podium),
                 new InstantCommand(() -> States.armState = States.ArmStates.podiumShot)
             )
             
