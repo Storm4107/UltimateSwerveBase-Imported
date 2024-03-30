@@ -50,7 +50,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shooter Position"
+            "name": "Podium Arm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Podium Shot"
           }
         },
         {
