@@ -42,6 +42,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Travel Position"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "FirstNote-FarAngle"

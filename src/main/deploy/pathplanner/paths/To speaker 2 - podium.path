@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 2.1398019755435165,
+        "x": 2.046088020410224,
         "y": 5.55
       },
       "prevControl": {
-        "x": 2.4540420330155954,
+        "x": 2.360328077882302,
         "y": 5.549405017601348
       },
       "nextControl": null,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4 note auto - paths",
+  "folder": "4 note - podium",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
