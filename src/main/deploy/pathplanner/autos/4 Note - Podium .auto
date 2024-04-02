@@ -44,19 +44,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "To note 2 - center stage"
+            "pathName": "To note 2 - podium"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shooter Position"
+            "name": "Podium Arm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Podium Shot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "To speaker 2 - center stage"
+            "pathName": "To speaker 2 - podium"
           }
         },
         {
@@ -80,19 +86,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "To note 1 - center stage"
+            "pathName": "To note 1 (medium) - podium"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shooter Position"
+            "name": "Podium Arm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Podium Shot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "To Speaker 1- center stage"
+            "pathName": "To Speaker 1 - podium"
           }
         },
         {
@@ -116,19 +128,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "To note 3 - center stage"
+            "pathName": "To note 3 - podium"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shooter Position"
+            "name": "Podium Arm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Podium Shot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "To Speaker 3 - center stage"
+            "pathName": "To Speaker 3 - podium"
           }
         },
         {
@@ -152,7 +170,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "To Center Line - center stage"
+            "pathName": "To Center Line - podium"
           }
         }
       ]
