@@ -19,7 +19,6 @@ import frc.lib.util.loggingUtil.LogManager;
  * project.
  */
 public class Robot extends LoggedRobot {
-  public static CTREConfigs ctreConfigs;
 
   private Command m_autonomousCommand;
 
@@ -31,7 +30,6 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
-    ctreConfigs = new CTREConfigs();
     CameraServer.startAutomaticCapture();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.

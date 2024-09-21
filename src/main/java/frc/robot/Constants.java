@@ -24,28 +24,18 @@ public final class Constants {
         public static final int sensor = 9;
         public static final int limitSwitch = 8;
 
-        //arm CANcoder ID
-        public static final int armEncoder = 39;
-        public static final double armEncoderOffset = 75;
-
         //Arm limits
         public static final int fwdLimit = 2000;
         public static final int revLimit = -3;
 
         //Arm PID Constants
-        public static final double armP = 0.03;
+        public static final double armP = 0.001;
         public static final double armI = 0.00;
         public static final double armD = 0.00;
         public static final double armK = 0.0;
 
         //arm FeedForward Constants
         public static final double armFF = 0.00;
-        
-        //Shooter PID Constants
-        public static final double shooterP = 0.0;
-        public static final double shooterI = 0.0;
-        public static final double shooterD = 0.0;
-        public static final double shooterK = 0.0;
 
         //arm converstion math
         public static final double gearRatio = (5*5*5);
@@ -55,18 +45,13 @@ public final class Constants {
         //Arm controller polling rate
         public static final double ScalingRatio = 1.5;
         
-
     }
 
-    public static final class Vision {
-        public static final String leftLLName = "left";
-        public static final String rightLLName = "right";
-    }
-
-    public static final class PoseEstimator {
-        public static final Matrix<N3,N1> stateStdDevs = VecBuilder.fill(0.1, 0.1, 0.1);
-        public static final Matrix<N3,N1> visionStdDevs = VecBuilder.fill(0.9, 0.9, 0.9);
-        // public static final Matrix<N3,N1> stateStdDevs = VecBuilder.fill(0.3, 0.3, Units.degreesToRadians(0.01));
-        // public static final Matrix<N3,N1> visionStdDevs = VecBuilder.fill(0.045, 0.045, Units.degreesToRadians(0.01));
+    public static final class driveTrain {
+        //TODO: set drive Motor IDS
+        public static final int frontLeft = 1;
+        public static final int frontRight = 0;
+        public static final int backLeft = 9;
+        public static final int backRight = 8;
     }
 }

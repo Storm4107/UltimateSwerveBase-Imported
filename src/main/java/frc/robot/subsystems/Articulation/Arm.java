@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.math.Conversions;
 import frc.robot.Constants;
 import frc.robot.States;
-import frc.robot.subsystems.swerve.rev.RevSwerveConfig;
 
 public class Arm extends SubsystemBase {
   

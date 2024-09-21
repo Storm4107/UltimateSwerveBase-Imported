@@ -16,13 +16,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Articulation.Arm;
 import frc.robot.subsystems.Articulation.Intake;
-import frc.robot.subsystems.Vision.PoseEstimator;
 import frc.robot.subsystems.Articulation.Shooter;
-import frc.robot.subsystems.Vision.Vision;
-import frc.robot.subsystems.swerve.rev.RevSwerve;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -73,9 +70,7 @@ public class RobotContainer {
     private final POVButton left = new POVButton(driver, 0);
 
     /* Subsystems */
-    private final PoseEstimator s_PoseEstimator = new PoseEstimator();
-    private final RevSwerve s_Swerve = new RevSwerve(s_PoseEstimator);
-    private final Vision s_Vision = new Vision(s_PoseEstimator);
+    private final DriveTrain s_Drivetrain = new DriveTrain();
     private final Arm s_arm = new Arm();
     private final Intake s_intake = new Intake();
     private final Shooter s_shooter = new Shooter();
@@ -88,14 +83,12 @@ public class RobotContainer {
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         //Swerve Command
-        s_Swerve.setDefaultCommand(
-            new TeleopSwerve(
-                s_Swerve, 
+        s_Drivetrain.setDefaultCommand(
+            new DriveCommand(
+                s_Drivetrain, 
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> false,
-                () -> dampen.getAsBoolean(),
                 () -> -driver.getRawAxis(speedDial) 
             )
         );
@@ -163,7 +156,7 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        zeroGyro.onTrue(new InstantCommand(() -> s_Drivetrain.zeroGyro()));
 
         zeroArm.onTrue(new InstantCommand(() -> s_arm.zeroArm()));
         //heading lock bindings
