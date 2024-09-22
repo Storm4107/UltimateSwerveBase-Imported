@@ -1,8 +1,5 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -75,11 +72,6 @@ public class RobotContainer {
     private final Intake s_intake = new Intake();
     private final Shooter s_shooter = new Shooter();
   
-
-    /* AutoChooser */
-    private final SendableChooser<Command> autoChooser;
-
-
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         //Swerve Command
@@ -118,34 +110,6 @@ public class RobotContainer {
 
         // Configure the button bindings
         configureButtonBindings();
-
-        //Pathplanner commands - templates
-        NamedCommands.registerCommand("Shooter Position", new ParallelCommandGroup(
-                new InstantCommand(() -> States.shooterState = States.ShooterStates.shoot),
-                new InstantCommand(() -> States.armState = States.ArmStates.speakerShot)
-            ));
-
-        NamedCommands.registerCommand("Pickup Position", new ParallelCommandGroup(
-                new InstantCommand(() -> States.intakeState = States.IntakeStates.intake),
-                new InstantCommand(() -> States.armState = States.ArmStates.low)
-            ));
-        
-        NamedCommands.registerCommand("Travel Position", new InstantCommand(() -> States.armState = States.ArmStates.medium));
-
-        NamedCommands.registerCommand("EjectOn", new InstantCommand(() -> States.intakeState = States.IntakeStates.shoot));
-
-        NamedCommands.registerCommand("EjectOff", new InstantCommand(() -> States.intakeState = States.IntakeStates.standard));
-
-        NamedCommands.registerCommand("Position Reset",  new ParallelCommandGroup(
-                new InstantCommand(() -> States.shooterState = States.ShooterStates.standard),
-                new InstantCommand(() -> States.armState = States.ArmStates.medium),
-                new InstantCommand(() -> States.intakeState = States.IntakeStates.standard)
-            ));
-    
-        
-        //Auto chooser
-        autoChooser = AutoBuilder.buildAutoChooser("New Auto"); // Default auto will be `Commands.none()`
-        SmartDashboard.putData("Auto Mode", autoChooser);
     }
 
     /**
