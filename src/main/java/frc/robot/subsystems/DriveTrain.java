@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -18,19 +20,40 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   private MecanumDrive Drive;
   public AHRS gyro;
+
+  public TalonSRX frontLeft;
+  public TalonSRX frontRight;
+  public TalonSRX backLeft;
+  public TalonSRX backRight;
   public DriveTrain() {
-    WPI_TalonSRX frontLeft = new WPI_TalonSRX(Constants.driveTrain.frontLeft);
-    WPI_TalonSRX frontRight = new WPI_TalonSRX(Constants.driveTrain.frontRight);
-    WPI_TalonSRX backLeft = new WPI_TalonSRX(Constants.driveTrain.backLeft);
-    WPI_TalonSRX backRight = new WPI_TalonSRX(Constants.driveTrain.backRight);
+    frontLeft = new TalonSRX(Constants.driveTrain.frontLeft);
+    frontRight = new TalonSRX(Constants.driveTrain.frontRight);
+    backLeft = new TalonSRX(Constants.driveTrain.backLeft);
+    backRight = new TalonSRX(Constants.driveTrain.backRight);
+
+
+    frontRight.setInverted(true);
+    backRight.setInverted(true);
 
     gyro = new AHRS(SerialPort.Port.kMXP);
 
-    Drive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
+    
   }
 
-  public void drive(double x, double y, double z){
-    Drive.driveCartesian(z, y, x, new Rotation2d(gyro.getYaw()));
+  public void drive(double x, double y, double rx){
+    double rotX = x * Math.cos(-getGyro()) - -y * Math.sin(-getGyro());
+    double rotY = x * Math.sin(-getGyro()) + -y * Math.cos(-getGyro());
+
+    double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+    double frontLeftPower = (rotY + rotX + rx) / denominator;
+    double backLeftPower = (rotY - rotX + rx) / denominator;
+    double frontRightPower = (rotY - rotX - rx) / denominator;
+    double backRightPower = (rotY + rotX - rx) / denominator;
+
+    frontLeft.set(ControlMode.PercentOutput, frontLeftPower);
+    frontRight.set(ControlMode.PercentOutput, frontRightPower);
+    backLeft.set(ControlMode.PercentOutput, backLeftPower);
+    backRight.set(ControlMode.PercentOutput, backRightPower);
   }
 
   public double getGyro(){
