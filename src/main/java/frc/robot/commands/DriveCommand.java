@@ -36,9 +36,9 @@ public class DriveCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xval = MathUtil.applyDeadband(xsup.getAsDouble(), Constants.stickDeadband) ;
-    double yval = MathUtil.applyDeadband(ysup.getAsDouble(), Constants.stickDeadband) * ((speedDial.getAsDouble() + 1) / 2);
-    double zval = MathUtil.applyDeadband(zsup.getAsDouble(), Constants.stickDeadband) * ((speedDial.getAsDouble() + 1) / 2);
+    double xval = MathUtil.applyDeadband(xsup.getAsDouble(), Constants.stickDeadband);
+    double yval = MathUtil.applyDeadband(ysup.getAsDouble(), Constants.stickDeadband);
+    double zval = MathUtil.applyDeadband(zsup.getAsDouble(), Constants.stickDeadband);
 
     m_Drive.drive(xval, yval, zval);
   }
