@@ -44,7 +44,7 @@ public class Intake extends SubsystemBase {
   }
 
    public boolean objectSensor() {
-    return sensor.get();
+    return !sensor.get();
   } 
 
   @Override

@@ -47,8 +47,8 @@ public class Arm extends SubsystemBase {
    //armRight.follow(armLeft,true);
 
    //Arm configuration
-   armRight.setInverted(true);
-   armLeft.setInverted(false);
+   armRight.setInverted(false);
+   armLeft.setInverted(true);
 
    armRight.setSmartCurrentLimit(40);
    armLeft.setSmartCurrentLimit(40);
