@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -21,15 +22,15 @@ public class DriveTrain extends SubsystemBase {
   private MecanumDrive Drive;
   public AHRS gyro;
 
-  public TalonSRX frontLeft;
-  public TalonSRX frontRight;
-  public TalonSRX backLeft;
-  public TalonSRX backRight;
+  public VictorSPX frontLeft;
+  public VictorSPX frontRight;
+  public VictorSPX backLeft;
+  public VictorSPX backRight;
   public DriveTrain() {
-    frontLeft = new TalonSRX(Constants.driveTrain.frontLeft);
-    frontRight = new TalonSRX(Constants.driveTrain.frontRight);
-    backLeft = new TalonSRX(Constants.driveTrain.backLeft);
-    backRight = new TalonSRX(Constants.driveTrain.backRight);
+    frontLeft = new VictorSPX(Constants.driveTrain.frontLeft);
+    frontRight = new VictorSPX(Constants.driveTrain.frontRight);
+    backLeft = new VictorSPX(Constants.driveTrain.backLeft);
+    backRight = new VictorSPX(Constants.driveTrain.backRight);
 
 
     frontRight.setInverted(true);
