@@ -7,7 +7,7 @@ import edu.wpi.first.math.numbers.N3;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
-    public static final double armDeadband = 0.25;
+    public static final double armDeadband = 0.3;
 
     public static final class articulation {
 
@@ -29,7 +29,7 @@ public final class Constants {
         public static final int revLimit = -3;
 
         //Arm PID Constants
-        public static final double armP = 0.001;
+        public static final double armP = 0.01;
         public static final double armI = 0.00;
         public static final double armD = 0.00;
         public static final double armK = 0.0;

@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
     //motor configuration
     Intake.restoreFactoryDefaults();
-    Intake.setInverted(false);
+    Intake.setInverted(true);
     Intake.setSmartCurrentLimit(30);
     Intake.setIdleMode(IdleMode.kBrake);
     Intake.burnFlash();
@@ -44,7 +44,7 @@ public class Intake extends SubsystemBase {
   }
 
    public boolean objectSensor() {
-    return !sensor.get();
+    return sensor.get();
   } 
 
   @Override
