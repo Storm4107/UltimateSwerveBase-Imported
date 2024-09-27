@@ -60,21 +60,21 @@ switch(States.armState){
                 //low ground
                   
                 //  Arm.enableArmLimits();
-                  Arm.setAngle(-2.5);
+                  Arm.setAngle(1.5);
                 break;
             case medium:
 
                 //medium source transit
                    
                   // Arm.enableArmLimits();
-                   Arm.setAngle(69);
+                   Arm.setAngle(45);
                 break;
             case high:
 
                 //high amp
                   
                  // Arm.enableArmLimits();
-                  Arm.setAngle(90);
+                  Arm.setAngle(65);
                 break;
             case speakerShot:
 

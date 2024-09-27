@@ -29,7 +29,7 @@ public final class Constants {
         public static final int revLimit = -3;
 
         //Arm PID Constants
-        public static final double armP = 0.01;
+        public static final double armP = 0.04;
         public static final double armI = 0.00;
         public static final double armD = 0.00;
         public static final double armK = 0.0;

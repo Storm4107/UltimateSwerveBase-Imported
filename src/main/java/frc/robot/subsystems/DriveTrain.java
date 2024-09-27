@@ -47,8 +47,8 @@ public class DriveTrain extends SubsystemBase {
 
     double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
     double frontLeftPower = (rotY + rotX + rx) / denominator;
-    double backLeftPower = (rotY - rotX + rx) / denominator;
-    double frontRightPower = (rotY - rotX - rx) / denominator;
+    double backLeftPower = (rotY - rotX - rx) / denominator;
+    double frontRightPower = (rotY - rotX + rx) / denominator;
     double backRightPower = (rotY + rotX - rx) / denominator;
 
     frontLeft.set(ControlMode.PercentOutput, frontLeftPower);
